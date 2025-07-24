@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>Película - Android TV</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Font Awesome CDN -->
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+<style>
+html, body {
+margin: 0;
+padding: 0;
+height: 100%;
+font-family: 'Segoe UI', sans-serif;
+color: #f5f5f5;
+overflow-x: hidden;
+}
+body {
+position: relative;
+background: url('https://image.tmdb.org/t/p/w500//91BAmpop4AJ5Pf7E0zuQiHdSV4Q.jpg') no-repeat center center fixed;
+background-size: cover;
+}
+/* Cortina oscura */
+body::before {
+content: "";
+position: fixed;
+top: 0; left: 0; right: 0; bottom: 0;
+background-color: rgba(0,0,0,0.7);
+z-index: -1;
+}
+
+.container {
+padding: 2rem;
+max-width: 1600px;
+margin: auto;
+position: relative;
+z-index: 1;
+}
+
+.top-buttons {
+display: flex;
+align-items: center;
+justify-content: space-between;
+margin-bottom: 2rem;
+}
+
+.btn-left, .btn-center, .btn-right {
+flex: 1;
+display: flex;
+justify-content: center;
+}
+
+.btn-left {
+justify-content: flex-start;
+}
+
+.btn-right {
+justify-content: flex-end;
+}
+
+button, a.play-button {
+background: linear-gradient(135deg, #1f1f1f, #2b2b2b);
+color: #fff;
+border: 2px solid #555;
+padding: 0.75rem 1.5rem;
+font-size: 1.1rem;
+border-radius: 0.75rem;
+cursor: pointer;
+outline: none;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+transition: all 0.2s ease-in-out;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+text-decoration: none;
+width: max-content;
+min-width: 130px;
+justify-content: center;
+}
+
+button i, a.play-button i {
+font-size: 1.2rem;
+}
+
+button:focus, a.play-button:focus {
+border-color: #00bcd4;
+background: linear-gradient(135deg, #2b2b2b, #3a3a3a);
+transform: scale(1.05);
+}
+
+.main-content {
+display: flex;
+gap: 2rem;
+flex-wrap: wrap;
+align-items: flex-start;
+}
+
+.poster-img {
+width: 160px;
+height: auto;
+border-radius: 0.75rem;
+box-shadow: 0 0 15px #00bcd4;
+flex-shrink: 0;
+}
+
+.title-section {
+display: flex;
+flex-direction: column;
+justify-content: center;
+gap: 0.5rem;
+flex-grow: 1;
+min-width: 200px;
+}
+
+.movie-title {
+font-size: 2.5rem;
+font-weight: bold;
+}
+
+.movie-info-line {
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+
+.synopsis-box {
+background-color: rgba(50, 50, 50, 0.8);
+padding: 1.5rem;
+border-radius: 0.75rem;
+font-size: 1.1rem;
+line-height: 1.6;
+flex: 1 1 40%;
+min-width: 300px;
+max-width: 600px;
+color: #eee;
+}
+
+@media (max-width: 768px) {
+.movie-title {
+font-size: 2rem;
+}
+.main-content {
+flex-direction: column;
+align-items: flex-start;
+}
+.poster-img {
+width: 120px;
+}
+.synopsis-box {
+max-width: 100%;
+}
+.title-section {
+min-width: auto;
+}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="top-buttons">
+<div class="btn-left">
+<button tabindex="1" id="btn1" onclick="goBack()">
+<i class="fas fa-arrow-left"></i> Regresar
+</button>
+</div>
+
+<div class="btn-center">
+<a
+href="https://lzrdrgz01.github.io/web?player=jwpl&provider=rand&format=video%2Fmp4&link=https://1a-1791.com/video/s8/2/O/R/_/a/OR_ao.aaa.mp4"
+tabindex="2"
+id="btn2"
+class="play-button"
+>
+<i class="fas fa-play"></i> Play
+</a>
+</div>
+
+<div class="btn-right">
+<button tabindex="3" id="btn3" onclick="goToSearch()">
+<i class="fas fa-search"></i> Buscador
+</button>
+</div>
+</div>
+
+<div class="main-content">
+<img
+class="poster-img"
+src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/8TbLvuKSDNbAriBAJx2RZlUGNvo.jpg"
+alt="Poster Coraline y la puerta secreta"
+/>
+
+<div class="title-section">
+<div class="movie-title">Coraline y la puerta secreta</div>
+<div class="movie-info-line">
+  <div>Año: 2009</div>
+  <div>Géneros: Animación, Fantasía, Misterio</div>
+  <div>Calificación de usuarios: 7.9⭐</div>
+</div>
+</div>
+
+<div class="synopsis-box" tabindex="4">
+<p>SINOPSIS: </p>
+Una aventurera niña de 11 años encuentra otro mundo que es una versión extrañamente idealizada de su frustrante hogar, pero que tiene siniestros secretos.
+</div>
+</div>
+</div>
+
+<script>
+const buttons = [
+document.getElementById('btn1'),
+document.getElementById('btn2'),
+document.getElementById('btn3'),
+];
+
+let focusedIndex = 0;
+
+function updateFocus() {
+buttons[focusedIndex].focus();
+}
+
+window.onload = () => {
+updateFocus();
+};
+
+document.addEventListener('keydown', function (e) {
+switch (e.key) {
+case 'ArrowRight':
+focusedIndex = (focusedIndex + 1) % buttons.length;
+updateFocus();
+e.preventDefault();
+break;
+case 'ArrowLeft':
+focusedIndex = (focusedIndex - 1 + buttons.length) % buttons.length;
+updateFocus();
+e.preventDefault();
+break;
+case 'Enter':
+buttons[focusedIndex].click();
+e.preventDefault();
+break;
+}
+});
+
+function goBack() {
+window.location.href = 'go:homeppp';
+}
+
+function goToSearch() {
+window.location.href = 'go:tvbus';
+}
+</script>
+</body>
+</html>
+
+
